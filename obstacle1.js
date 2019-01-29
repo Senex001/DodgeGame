@@ -1,12 +1,15 @@
 //first obstacle
-//Every Obstacle has : a position, an acceleration, a move function and a draw function
+
+//Every Obstacle has : a position, an acceleration, a move function, 
+//a draw function, a collision detection function and a reset function
 
 class Obstacle1  {
-	constructor(x,y,ax,ay) {
-		this.xPos = x;
-		this.yPos = y;
-		this.xAcc = ax;
-		this.yAcc = ay;
+
+	constructor() {
+		this.xPos = ceil(random(15,width-15));
+		this.yPos = ceil(random(15,55));
+		this.xAcc = 1;
+		this.yAcc = 1;
 		this.size = 20;
 		this.xMinReached = false;
 		this.yMinReached = false;
@@ -53,8 +56,8 @@ collisionDetection(ball) {
 }
 
 reset() {
-	this.xPos = 10;
-	this.yPos = 10;
+	this.xPos = ceil(random(15,width-15));
+	this.yPos = ceil(random(15,55));
 	this.xMinReached = false;
 	this.yMinReached = false;
 }

@@ -5,6 +5,7 @@ var timer;
 var spawnArea;
 let ball;
 let factory;
+let pauseVal;
 let sek = 0;
 let min = 0;
 let hour = 0;
@@ -12,24 +13,12 @@ let sekDisplay = '00';
 let minDisplay = '00';
 let hourDisplay ='00';
 
-/*
-//define font used eventually :
-let font,
-  fontsize = 40;
-
-//preload files etc needed:
-function preload() {
-  // Ensure the .ttf or .otf font stored in the assets directory
-  // is loaded before setup() and draw() are called
-  font = loadFont('assets/Montserrat-Black.otf');
-}
-*/
-
 //set up webpage for the first time:
 //creates canvas, span and button
 function setup() {
-  	canvas = createCanvas(0,0);
+  	canvas = createCanvas(windowWidth,windowHeight-50);
   	span = createSpan('Placeholder');
+    bottom = createDiv();
     timer = createSpan(hourDisplay + ':' + minDisplay + ':' + sekDisplay);
   	span.position(50,100);
   	span.hide();
@@ -38,19 +27,13 @@ function setup() {
     spawnArea = createSpan('Spawn Area');
     spawnArea.style('font-size','24px');
     spawnArea.style('font-family','Arial');
-    spawnArea.center();
+    spawnArea.position(width/2-60, 20);
     spawnArea.hide();
   	
   	ball = new Ball();
   	factory = new ObstacleFactory(ball);
-    setInterval(time,1000);
-
-
-	canvasManipulation();
-
-  	/*textFont(font);
-  	textSize(fontsize);
-  	textAlign(CENTER, CENTER);*/
+    setInterval(gameTimer,1000);
+    canvasManipulation();
 }
 
 //detect if screen was touched and make it fullscreen
@@ -101,13 +84,15 @@ function draw() {
   rect(0,0,width,75);
 
 	ball.moveBall();
-	var hit = factory.dmSingleObject();
+  var hit = factory.move();
 	if (hit) {
 		loose();
-	}
+	} else {
+    factory.draw();
+  }
 }
 
-function time() {
+function gameTimer() {
   sek = (sek + 1) % 60;
   if (sek == 0) {
     min = (min + 1) % 60;
@@ -131,15 +116,21 @@ function time() {
     hourDisplay = str(hour);
   }
   timer.html(hourDisplay + ':' + minDisplay + ':' + sekDisplay);
+  if (sek % 5 == 0) {
+    factory.addObstacle();
+  }
 }
 
-
 function loose() {
-	window.alert('You have hit the obstacle')
 	reset();
+  window.alert('You have hit the obstacle');	
 }
 
 function reset() {
 	ball.reset();
 	factory.reset();
+  sek = 0;
+  min = 0;
+  hour = 0;
+  timer.html('00:00:00');
 }

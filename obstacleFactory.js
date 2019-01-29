@@ -1,23 +1,46 @@
 //This serves as a factory for objects. Will be espacially handy as soon as more objects are added.
 
-
 //draws and moves single object, mainly for test purposes
 class ObstacleFactory {
 	constructor (b) {
-		//for (int i = 1; i <4; i++) {
-			this.obstacle1 = new Obstacle1(10,10,1,1);
-		//}
+		this.obstacles = [];
+		this.count = 3;
+		for (var i = 0; i <3; i++) {
+			this.obstacles.push(new Obstacle1());
+		}
 		this.ball = b;
 
 	}
 
-dmSingleObject() {
-	this.obstacle1.move();
-	this.obstacle1.drawObstacle();
-	return this.obstacle1.collisionDetection(this.ball);
+	move() {
+		let flag = false;
+		for (var i = 0; i < this.count; i++) {
+			this.obstacles[i].move();
+			if (this.obstacles[i].collisionDetection(this.ball)) {
+				flag = true;
+			}
+		}
+		return flag;
+	}
+
+	draw() {
+	for (var i = 0; i < this.count; i++) {
+		this.obstacles[i].drawObstacle();
+	}
+	
 	//window.alert('test1');
-}
-reset() {
-	this.obstacle1.reset();
-}
+	}
+
+	addObstacle() {
+		this.obstacles.push(new Obstacle1());
+		this.count ++;
+	}
+
+	reset() {
+		this.obstacles = [];
+		for (var i = 0; i <3; i++) {
+			this.obstacles.push(new Obstacle1());
+		}
+		this.count = 3;
+	}
 }
