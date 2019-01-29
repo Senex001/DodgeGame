@@ -4,8 +4,11 @@
 //draws and moves single object, mainly for test purposes
 class ObstacleFactory {
 	constructor (b) {
-		this.obstacle1 = new Obstacle1();
+		//for (int i = 1; i <4; i++) {
+			this.obstacle1 = new Obstacle1(10,10,1,1);
+		//}
 		this.ball = b;
+
 	}
 
 dmSingleObject() {

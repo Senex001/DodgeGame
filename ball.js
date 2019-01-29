@@ -1,8 +1,8 @@
 class Ball {
 
 constructor() {
-	this.xPos = windowHeight/2;
-	this.yPos = windowWidth/2;
+	this.xPos = height/2;
+	this.yPos = width/2;
 	this.xAcc = 0;
 	this.yAcc = 0;
 	this.size = 25;
@@ -20,13 +20,13 @@ moveBall() {
  	for (var i = 0; i <30; i ++) {
 		if (this.xAcc <0 && this.xPos > ceil(this.size/2)) {
 			this.xPos = this.xPos + this.xAcc;
-		} else if (this.xAcc > 0 && this.xPos < windowWidth-ceil(this.size/2)){ 
+		} else if (this.xAcc > 0 && this.xPos < width-ceil(this.size/2)){ 
 			this.xPos = this.xPos + this.xAcc;
 		}	
 
 		if (this.yAcc <0 && this.yPos > ceil(this.size/2)) {
 			this.yPos = this.yPos + this.yAcc;
-		} else if (this.yAcc > 0 && this.yPos < windowHeight-ceil(this.size/2)){ 
+		} else if (this.yAcc > 0 && this.yPos < height-ceil(this.size/2)){ 
 			this.yPos = this.yPos + 2*this.yAcc;
 		}
 	}
@@ -47,7 +47,7 @@ getSize() {
 }
 
 reset() {
-	this.xPos = windowHeight/2;
-	this.yPos = windowWidth/2;
+	this.xPos = height/2;
+	this.yPos = width/2;
 }
 }

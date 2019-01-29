@@ -1,8 +1,16 @@
 //variables needed :
 var canvas;
 var span;
+var timer;
+var spawnArea;
 let ball;
 let factory;
+let sek = 0;
+let min = 0;
+let hour = 0;
+let sekDisplay = '00';
+let minDisplay = '00';
+let hourDisplay ='00';
 
 /*
 //define font used eventually :
@@ -22,11 +30,20 @@ function preload() {
 function setup() {
   	canvas = createCanvas(0,0);
   	span = createSpan('Placeholder');
+    timer = createSpan(hourDisplay + ':' + minDisplay + ':' + sekDisplay);
   	span.position(50,100);
   	span.hide();
+    span.style('font-size','24px');
+    timer.style('font-size','24px');
+    spawnArea = createSpan('Spawn Area');
+    spawnArea.style('font-size','24px');
+    spawnArea.style('font-family','Arial');
+    spawnArea.center();
+    spawnArea.hide();
   	
   	ball = new Ball();
   	factory = new ObstacleFactory(ball);
+    setInterval(time,1000);
 
 
 	canvasManipulation();
@@ -55,10 +72,16 @@ function windowResized() {
 //hide canvas or span according to 
 function canvasManipulation() {
 	if(windowWidth<windowHeight){
+    loop();
 		span.hide();
-		resizeCanvas(windowWidth, windowHeight);
+    timer.show();
+    spawnArea.show();
+		resizeCanvas(windowWidth, windowHeight-50);
 	} else {
 		resizeCanvas(0,0);
+    noLoop();
+    timer.hide();
+    spawnArea.hide();
     if (str(deviceOrientation) == 'undefined') {
       span.html('Please visit our website from your mobile device to be able to play the game.');
     } else {
@@ -74,11 +97,40 @@ function canvasManipulation() {
 //called 
 function draw() {
 	background(150);
+  fill('red');
+  rect(0,0,width,75);
+
 	ball.moveBall();
 	var hit = factory.dmSingleObject();
 	if (hit) {
 		loose();
 	}
+}
+
+function time() {
+  sek = (sek + 1) % 60;
+  if (sek == 0) {
+    min = (min + 1) % 60;
+    if (min == 0) {
+      hour ++;
+    }
+  }
+  if (sek < 10) {
+    sekDisplay = '0' + str(sek);
+  } else {
+    sekDisplay = str(sek);
+  }
+  if (min < 10) {
+    minDisplay = '0' + str(min);
+  } else {
+    minDisplay = str(min);
+  }
+  if (hour < 10) {
+    hourDisplay = '0' + str(hour);
+  } else {
+    hourDisplay = str(hour);
+  }
+  timer.html(hourDisplay + ':' + minDisplay + ':' + sekDisplay);
 }
 
 

@@ -2,11 +2,11 @@
 //Every Obstacle has : a position, an acceleration, a move function and a draw function
 
 class Obstacle1  {
-	constructor() {
-		this.xPos = 10;
-		this.yPos = 10;
-		this.xAcc = 1;
-		this.yAcc = 1;
+	constructor(x,y,ax,ay) {
+		this.xPos = x;
+		this.yPos = y;
+		this.xAcc = ax;
+		this.yAcc = ay;
 		this.size = 20;
 		this.xMinReached = false;
 		this.yMinReached = false;
@@ -19,7 +19,7 @@ move(){
 			}
 		} else {
 			this.xPos += this.xAcc;
-			if (this.xPos == windowWidth - this.size) {
+			if (this.xPos == width - this.size) {
 				this.xMinReached = false;
 			}
 		}
@@ -32,7 +32,7 @@ move(){
 				}
 		} else {
 			this.yPos += this.yAcc;
-			if (this.yPos == windowHeight - this.size) {
+			if (this.yPos == height - this.size) {
 				this.yMinReached = false;
 			}
 		}
